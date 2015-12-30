@@ -297,10 +297,10 @@ void descomprimir(char *arquivo_comprimido){
                                         break;
             }
             printf("switch %i", i);
-            if(pos->esq == 0 && pos->dir == 0){
-            	printf("For count %i total %i Teste ",count, total);
-				//fputc(pos->c,saida);	
-				//pos=raiz;
+            if(pos->esq==NULL&&pos->dir==NULL){
+            //	printf("For count %i total %i Teste ",count, total);
+				fputc(pos->c,saida);	
+				pos=raiz;
 				++count;
 			}
         	//}
