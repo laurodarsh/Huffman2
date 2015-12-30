@@ -9,15 +9,15 @@ int main(int argc, char **argv){
 	char resposta;
 	char arquivo[25];
 	char arquivoComprimido[25];
-	
+
 	printf("Deseja comprimir(digite c) ou descomprimir(digite d)?");
 	resposta=getchar();
-	
+
 	if(resposta == 'c'){//Comprimir o arquivo
 		fflush(stdin);
 		printf("Digite o nome do arquivo a ser comprimido:");
 		gets(arquivo);
-		comprimir(arquivo);		
+		comprimir(arquivo);
 	}else if(resposta == 'd'){//Descomprimir
 		fflush(stdin);
 		printf("Digite o nome do arquivo a ser descomprimido:");
@@ -27,12 +27,12 @@ int main(int argc, char **argv){
 		printf("Parametro deconhecido");
 		return -1;
 	}
-	
+
 	return 0;
 }
 
 void comprimir(char *original){
-	
+
 	printf("Iniciando compressão...");
 		int i;
 	NODE vetor[TAMANHO_DIC];
@@ -43,7 +43,7 @@ void comprimir(char *original){
 		vetor[i].count=0; // frequencia
 		vetor[i].esq=vetor[i].dir=vetor[i].pai=vetor[i].prox=NULL;
 	}
-    
+
     strcat(original, ".txt");
 	//Abrir arquivo de entrada
 	FILE *entrada=fopen(original,"r");
@@ -56,24 +56,24 @@ void comprimir(char *original){
 	while((c=fgetc(entrada))!=EOF){//pega caracter um por um enquanto nao chegar ao final do arquivo(EOF)
 		++vetor[c].count;//incrementa a frequencia do caracter
 	}
-	
+
 	//Criar lista ordenada pela frequencia
 	NODE *raiz=NULL;
 	for(i=0;i<TAMANHO_DIC;++i){
 		if(vetor[i].count != 0)
 			inserir_no(&raiz,&(vetor[i]));
 	}
-	
+
 	//int a=0;
 	//for(a=0;a<255;a++){
 	//printf("Letra: %c ",vetor[a].c);
 	//printf("Qtd %i ",vetor[a].count);
 	//}
-	
+
 	criar_arvore_huffman(&raiz);
 	//Gera os códigos
-    gerar_codigos(vetor);	
-	
+    gerar_codigos(vetor);
+
 	//Abre o arquivo de saida
 	FILE *saida=fopen("comprimido.txt","wb");
 	//Escreve o total de letras e a frequencia de cada letra no inicio do arquivo
@@ -129,7 +129,7 @@ void comprimir(char *original){
 	//Escreve o final, caso o arquivo codificado nao coincida de ser multiplo de 8 bits 
 	if(bits_escritos)
 		fputc(cb.c,saida);
-        
+
 	//fecha os arquivos de entrada e saida
 	fclose(entrada);
 	fclose(saida);
@@ -141,9 +141,9 @@ void descomprimir(char *arquivo_comprimido){
 	printf("descomprimindo...\n");
     int i;
 	int total=0;
-    
+
 	    NODE vetor[TAMANHO_DIC];
-		
+
 		strcat(arquivo_comprimido, ".txt");
         //Abrir arquivo de entrada
         FILE *entrada=fopen(arquivo_comprimido,"r");
@@ -154,7 +154,7 @@ void descomprimir(char *arquivo_comprimido){
 
 	unsigned tamanhos[TAMANHO_DIC]; 
 	fread(tamanhos, sizeof(unsigned), sizeof(tamanhos), entrada);
-	
+
 	//Inicializacao do vetor de dicionario
         for(i=0;i<TAMANHO_DIC;++i){
 		total+=tamanhos[i];
@@ -162,13 +162,13 @@ void descomprimir(char *arquivo_comprimido){
 		vetor[i].count = tamanhos[i];
                 vetor[i].esq=vetor[i].dir=vetor[i].pai=vetor[i].prox=NULL;
         }
-	
+
 	//int a=0;
 	//for(a=0;a<255;a++){
 	//printf("Letra: %c ",vetor[a].c);
 	//printf("Qtd %i ",vetor[a].count);
 	//}
-	
+
 	//Criar lista ordenada pela frequencia
         NODE *raiz=NULL;
         for(i=0;i<TAMANHO_DIC;++i){
@@ -299,14 +299,14 @@ void descomprimir(char *arquivo_comprimido){
             printf("switch %i", i);
             if(pos->esq == 0 && pos->dir == 0){
             	printf("For count %i total %i Teste ",count, total);
-				//fputc(pos->c,saida);	
+				//fputc(pos->c,saida);
 				//pos=raiz;
 				++count;
 			}
         	//}
         	printf("cheguei16");
 		}
-		
+
 	}
 
 	//Fechar os arquivos
@@ -335,9 +335,9 @@ void inserir_no(NODE **lista,NODE *no){
 			no->prox=ant->prox;
 			ant->prox=no;
 		}
-	}	
+	}
 }
-	
+
 void criar_arvore_huffman(NODE **raiz){
 	NODE *no1;
     NODE *no2;
@@ -422,6 +422,3 @@ void escrever_frequencia(NODE vetor[TAMANHO_DIC],FILE * saida){
 	fwrite(tamanhos, sizeof(unsigned), sizeof(tamanhos), saida);
 	fclose(saida);
 }
-
-
-
