@@ -1,1 +1,19 @@
-ab
+Compressão no máximo 2 caracters diferentes
+
+Code blocks ok
+
+Dev ok
+
+Compressão mais de 2 caracters diferentes
+
+Funciona quando se comenta o método criar_arvore_huffman
+
+Code blocks Parcial
+
+Dev Parcial
+
+Descompressão
+
+Code blocks Não
+
+Dev Não
