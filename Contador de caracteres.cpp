@@ -12,12 +12,12 @@ int main(int argc, char **argv){
 	if(resposta == 'c'){//Comprimir o arquivo
 		fflush(stdin);
 		printf("Digite o nome do arquivo a ser comprimido:");
-		gets(arquivo);
+		scanf("%s",arquivo);
 		comprimir(arquivo);
 	}else if(resposta == 'd'){//Descomprimir o arquivo
 		fflush(stdin);
 		printf("Digite o nome do arquivo a ser descomprimido:");
-		gets(arquivoComprimido);
+		scanf("%s", arquivoComprimido);
 		descomprimir(arquivoComprimido);
 	}else{//parametro desconhecido
 		printf("Parametro deconhecido");
