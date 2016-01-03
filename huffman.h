@@ -33,9 +33,11 @@ typedef union{
 	BITS b;
 }CHAR_BITS;
 
-void comprimir(char *arquivo);
+char *remove_ext (char* mystr, char dot, char sep);
 
-void descomprimir(char *arquivoComprimido);
+void comprimir(char *arquivo_in,char *arquivo_out);
+
+void descomprimir(char *arquivo_in,char *arquivo_out);
 
 void inserir_no(NODE **lista,NODE *no);
 
